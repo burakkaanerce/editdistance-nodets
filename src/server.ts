@@ -1,5 +1,5 @@
-import App from './app/app.js';
-import MainRoute from './routes/main.route.js';
+import App from './app/app';
+import MainRoute from './routes/main.route';
  
 const port = 3000
 

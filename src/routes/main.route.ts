@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import MainController from '../controllers/main.controller.js';
+import MainController from '../controllers/main.controller';
  
 class MainRoute {
   public path = 'main';

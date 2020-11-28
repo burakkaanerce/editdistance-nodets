@@ -21,7 +21,7 @@ class App {
  
   private initializeRoutes(routes: any) {
     routes.forEach((route: any) => {
-      this.app.use(`/api/${route.path}`, route.router);
+      this.app.use(`/api/v1/${route.path}`, route.router);
     });
   }
  
