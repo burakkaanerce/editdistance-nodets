@@ -15,32 +15,3 @@ describe('Test MainRoute', () => {
     done();
   });
 });
-
-/* import supertest from 'supertest'
-
-import App from '../src/app/app';
-import MainRoute from '../src/routes/main.route';
- 
-const port = 3000
-
-const app = new App(
-  [
-    new MainRoute(),
-  ],
-  port,
-);
-
-describe('App', () => {
-  it('/api/main/get', () =>
-    supertest(app.app)
-      .get('/api/main/get')
-      .expect('Content-Type', /json/)
-      .expect(200)
-  )
-  it('/api/main/post', () =>
-    supertest(app.app)
-      .post('/api/main/post')
-      .expect('Content-Type', /json/)
-      .expect(200)
-  )
-}) */
