@@ -7,32 +7,34 @@ import logger from 'morgan';
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import Route from '../types/Route';
 
-var corsOptions = {
-  origin: "*"
+const corsOptions = {
+  origin: '*',
 };
- 
+
 class App {
   public app: express.Application;
+
   public port: number;
- 
-  constructor(routes: any, port: number) {
+
+  constructor(routes: Route[], port: number) {
     this.app = express();
     this.port = port;
- 
+
     this.initializeMiddlewares();
     this.initializeParsers();
     this.initializeRoutes(routes);
     this.initializeErrorHandlers();
   }
- 
+
   private initializeMiddlewares() {
     this.app.use(logger('dev'));
   }
- 
-  private initializeRoutes(routes: any) {
-    routes.forEach((route: any) => {
-      this.app.use(`/api/v1/${route.path}`, route.router);
+
+  private initializeRoutes(routes: Route[]) {
+    routes.forEach((route: Route) => {
+      if (route.path && route.router) this.app.use(`/api/v1/${route.path}`, route.router);
     });
   }
 
@@ -46,24 +48,17 @@ class App {
   }
 
   private initializeErrorHandlers() {
-    this.app.use((req: any, res: any, next: any) => {
+    this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
       next(createError(404));
     });
-
-    this.app.use((err: any, req: any, res: any, next: any) => {
-      res.locals.message = err.message;
-      res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-      res.status(err.status || 500);
-      res.render('error');
-    });
   }
- 
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public listen() {
     this.app.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
   }
 }
- 
+
 export default App;
