@@ -1,11 +1,11 @@
 import App from './app/app';
-import MainRoute from './routes/main.route';
+import AlgorithmRoute from './routes/algorithm.route';
  
 const port = 3000
 
-const app = new App(
+export const app = new App(
   [
-    new MainRoute(),
+    new AlgorithmRoute()
   ],
   port,
 );

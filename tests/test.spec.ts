@@ -1,29 +1,18 @@
 import request from 'supertest';
 
-import App from '../src/app/app';
-import MainRoute from '../src/routes/main.route';
- 
-const port = 3000
-
-const app = new App(
-  [
-    new MainRoute(),
-  ],
-  port,
-);
+import { app } from '../src/server';
 
 describe('Test MainRoute', () => {
-  it('Request /api/v1/main/get should return "This is GET"', async () => {
-    const result = await request(app.app).get('/api/v1/main/get').send();
+  it('/api/v1/algorithms/find-distance"', async (done) => {
+    const result = await request(app.app)
+      .post('/api/v1/algorithms/find-distance')
+      .send({ firstWord: 'deneme', secondWord: 'menemen'});
 
     expect(result.status).toBe(200);
-    expect(result.body.message).toBe('This is GET');
-  });
-  it('Request /api/v1/main/post should return "This is POST"', async () => {
-    const result = await request(app.app).post('/api/v1/main/post').send();
+    expect(result.body.result).toBe(2);
 
-    expect(result.status).toBe(200);
-    expect(result.body.message).toBe('This is POST');
+    console.log("timer: ", result.body.timer);
+    done();
   });
 });
 
